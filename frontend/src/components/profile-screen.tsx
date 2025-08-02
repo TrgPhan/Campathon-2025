@@ -15,19 +15,19 @@ export default function ProfileScreen() {
 
   return (
     <div className="h-full bg-gray-50 flex flex-col">
-      <div className="p-6 bg-purple-50 border-b border-purple-200 flex-shrink-0">
-        <h1 className="text-3xl font-bold text-purple-800">Hồ Sơ Sức Khỏe</h1>
-        <p className="text-purple-600 mt-1">Theo dõi dinh dưỡng và sức khỏe của bạn</p>
+      <div className="px-6 py-4 bg-gradient-to-r from-purple-50 to-violet-50 border-b border-purple-200/50 flex-shrink-0">
+        <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-violet-800 tracking-tight">Hồ Sơ Sức Khỏe</h1>
+        <p className="text-purple-600/80 mt-1 text-xs font-medium">Theo dõi dinh dưỡng và sức khỏe của bạn</p>
       </div>
 
       <div className="flex-1 overflow-hidden">
         <ScrollArea className="h-full">
-          <div className="p-6 space-y-6">
+          <div className="px-6 py-4 space-y-4">
             {/* Calories and Macros Row */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4">
               {/* Calories Donut Chart */}
-              <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-6 text-gray-800">Calories</h3>
+              <Card className="p-4">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Calories</h3>
                 <div className="text-center">
                   <div className="relative w-40 h-40 mx-auto mb-4">
                     <svg className="w-40 h-40 transform rotate-0" viewBox="0 0 36 36">
@@ -58,8 +58,8 @@ export default function ProfileScreen() {
               </Card>
 
               {/* Combined Macro Charts */}
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-6 text-gray-800">Macros</h3>
+              <Card className="p-4">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">Macros</h3>
                 <div className="grid grid-cols-3 gap-4">
                   {macros.map((macro) => {
                     const percentage = (macro.current / macro.goal) * 100

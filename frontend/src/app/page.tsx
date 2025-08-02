@@ -41,27 +41,27 @@ export default function FoodApp() {
     <div className="h-screen bg-gray-50 flex">
       {/* Left Sidebar */}
       <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-        <div className="p-6 border-b border-gray-200">
-          <h1 className="text-2xl font-bold text-gray-800">Food Manager</h1>
-          <p className="text-sm text-gray-600 mt-1">Quản lý thực phẩm thông minh</p>
+        <div className="px-6 py-4 border-b border-gray-200/50 bg-gradient-to-r from-gray-50 to-slate-50 flex-shrink-0">
+          <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-slate-800 tracking-tight">Food Manager</h1>
+          <p className="text-gray-600/80 mt-1 text-xs font-medium">Quản lý thực phẩm thông minh</p>
         </div>
 
-        <nav className="flex-1 p-4">
-          <ul className="space-y-2">
+        <nav className="flex-1 px-4 py-3">
+          <ul className="space-y-1">
             {navigationItems.map((item) => {
               const Icon = item.icon
               return (
                 <li key={item.id}>
                   <button
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200 ${
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-all duration-200 ${
                       activeTab === item.id
-                        ? "bg-gray-100 text-gray-900 font-medium"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        ? "bg-gradient-to-r from-gray-100 to-slate-100 text-gray-900 font-semibold shadow-sm"
+                        : "text-gray-600 hover:bg-gray-50/80 hover:text-gray-900"
                     }`}
                   >
-                    <Icon size={20} className={activeTab === item.id ? item.color : ""} />
-                    <span>{item.label}</span>
+                    <Icon size={18} className={activeTab === item.id ? item.color : "text-gray-500"} />
+                    <span className="text-sm">{item.label}</span>
                   </button>
                 </li>
               )
@@ -69,8 +69,8 @@ export default function FoodApp() {
           </ul>
         </nav>
 
-        <div className="p-4 border-t border-gray-200">
-          <div className="text-xs text-gray-500 text-center">© 2024 Food Manager</div>
+        <div className="px-4 py-3 border-t border-gray-200/50">
+          <div className="text-xs text-gray-500/80 text-center">© 2024 Food Manager</div>
         </div>
       </div>
 

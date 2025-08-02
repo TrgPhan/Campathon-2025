@@ -8,11 +8,23 @@ export interface Message {
   foodSuggestions?: Array<{ id: string; name: string; image: string; ingredients: string[] }>
 }
 
+export interface ChatSession {
+  id: string
+  title: string
+  messages: Message[]
+  createdAt: Date
+  updatedAt: Date
+}
+
 export interface FoodItem {
   id: string
   name: string
   image: string
   ingredients: string[]
+  // Storage specific fields
+  manufacturingDate?: Date
+  quantity?: number
+  unit?: string // gram, kg, l, ml, etc.
 }
 
 export interface FoodSuggestion {
@@ -80,4 +92,51 @@ export interface NavigationItem {
   label: string
   icon: any
   color: string
+}
+
+// Calendar related types
+export interface MealPlan {
+  breakfast: string
+  lunch: string
+  dinner: string
+}
+
+export interface CalendarDay {
+  day: number
+  date: string
+  hasMealPlan: boolean
+  mealPlan?: MealPlan
+  isToday: boolean
+  isCurrentMonth: boolean
+}
+
+// Search and filter types
+export interface SearchFilters {
+  query: string
+  category?: string
+  difficulty?: string
+  cookingTime?: string
+}
+
+// User preferences types
+export interface UserPreferences {
+  dietaryRestrictions: string[]
+  allergies: string[]
+  preferredCuisine: string[]
+  calorieGoal: number
+  weightGoal: 'gain' | 'lose' | 'maintain'
+}
+
+// Error and loading states
+export interface LoadingState {
+  isLoading: boolean
+  error: string | null
+}
+
+// API response types
+export interface ApiResponse<T> {
+  data: T
+  success: boolean
+  message?: string
+  error?: string
 } 

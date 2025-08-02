@@ -5,17 +5,55 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { MONTH_NAMES, DAY_NAMES, MEAL_PLANS } from "@/lib/constants"
+import { Progress } from "@/components/ui/progress"
+import { MONTH_NAMES, DAY_NAMES, MEAL_PLANS, AVAILABLE_FOODS } from "@/lib/constants"
+import type { Macro } from "@/lib/types"
 
 export default function CalendarScreen() {
   const [currentDate, setCurrentDate] = useState(new Date())
 
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay()
-
   const monthNames = MONTH_NAMES
   const dayNames = DAY_NAMES
   const mealPlans = MEAL_PLANS
+
+  // Mock daily macro data for each day
+  const dailyMacros: Record<string, Macro[]> = {
+    "T2": [
+      { name: "Protein", current: 120, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 280, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 85, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+    "T3": [
+      { name: "Protein", current: 135, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 300, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 92, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+    "T4": [
+      { name: "Protein", current: 110, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 260, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 78, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+    "T5": [
+      { name: "Protein", current: 145, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 310, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 95, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+    "T6": [
+      { name: "Protein", current: 125, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 290, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 88, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+    "T7": [
+      { name: "Protein", current: 130, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 295, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 90, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+    "CN": [
+      { name: "Protein", current: 115, goal: 150, color: "bg-red-500", unit: "g" },
+      { name: "Carbs", current: 275, goal: 320, color: "bg-blue-500", unit: "g" },
+      { name: "Fat", current: 82, goal: 100, color: "bg-yellow-500", unit: "g" },
+    ],
+  }
 
   const navigateMonth = (direction: number) => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + direction, 1))
@@ -23,14 +61,14 @@ export default function CalendarScreen() {
 
   return (
     <div className="h-full bg-white flex flex-col">
-      <div className="p-6 bg-red-50 border-b border-red-200 flex-shrink-0">
+      <div className="px-6 py-4 bg-gradient-to-r from-red-50 to-rose-50 border-b border-red-200/50 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-red-800">Lịch Ăn Uống</h1>
-            <p className="text-red-600 mt-1">Lên kế hoạch bữa ăn hàng ngày</p>
+            <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-rose-800 tracking-tight">Lịch Ăn Uống</h1>
+            <p className="text-red-600/80 mt-1 text-xs font-medium">Lên kế hoạch bữa ăn hàng ngày</p>
           </div>
-          <Button className="px-6 py-3">
-            <Plus size={16} className="mr-2" />
+          <Button className="px-4 py-2">
+            <Plus size={14} className="mr-2" />
             Thêm Kế Hoạch
           </Button>
         </div>
@@ -38,101 +76,117 @@ export default function CalendarScreen() {
 
       <div className="flex-1 overflow-hidden">
         <ScrollArea className="h-full">
-          <div className="p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Calendar */}
-              <div className="lg:col-span-2">
-                <Card className="p-6">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-semibold text-gray-800">
-                      {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-                    </h2>
+          <div className="px-6 py-4">
+            {/* Daily Meal Schedule */}
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">Lịch Ăn Uống Hôm Nay</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Sáng */}
+                <Card className="p-4">
+                  <h3 className="font-semibold text-orange-600 mb-3 flex items-center gap-2">
+                    <span className="text-lg">🌅</span>
+                    Sáng
+                  </h3>
+                  <div className="space-y-2">
+                    {AVAILABLE_FOODS.slice(0, 2).map((food) => (
+                      <div key={food.id} className="p-2 bg-orange-50 rounded border border-orange-200">
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm" onClick={() => navigateMonth(-1)}>
-                        <ChevronLeft size={16} />
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={() => navigateMonth(1)}>
-                        <ChevronRight size={16} />
-                      </Button>
+                          <img src={food.image} alt={food.name} className="w-8 h-8 rounded object-cover" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-gray-800">{food.name}</p>
+                            <p className="text-xs text-gray-600">{food.cookingTime}</p>
+                          </div>
+                        </div>
                     </div>
+                    ))}
                   </div>
+                </Card>
 
-                  {/* Day headers */}
-                  <div className="grid grid-cols-7 gap-2 mb-4">
-                    {dayNames.map((day) => (
-                      <div key={day} className="text-center text-sm font-medium text-gray-600 p-3">
-                        {day}
+                {/* Trưa */}
+                <Card className="p-4">
+                  <h3 className="font-semibold text-green-600 mb-3 flex items-center gap-2">
+                    <span className="text-lg">🌞</span>
+                    Trưa
+                  </h3>
+                  <div className="space-y-2">
+                    {AVAILABLE_FOODS.slice(1, 3).map((food) => (
+                      <div key={food.id} className="p-2 bg-green-50 rounded border border-green-200">
+                        <div className="flex items-center gap-2">
+                          <img src={food.image} alt={food.name} className="w-8 h-8 rounded object-cover" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-gray-800">{food.name}</p>
+                            <p className="text-xs text-gray-600">{food.cookingTime}</p>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
+                </Card>
 
-                  {/* Calendar grid */}
-                  <div className="grid grid-cols-7 gap-2">
-                    {/* Empty cells for days before month starts */}
-                    {Array.from({ length: firstDayOfMonth }, (_, i) => (
-                      <div key={`empty-${i}`} className="h-20" />
-                    ))}
-
-                    {/* Days of the month */}
-                    {Array.from({ length: daysInMonth }, (_, i) => {
-                      const day = i + 1
-                      const hasMealPlan = mealPlans[day as keyof typeof mealPlans]
-                      const isToday =
-                        day === new Date().getDate() &&
-                        currentDate.getMonth() === new Date().getMonth() &&
-                        currentDate.getFullYear() === new Date().getFullYear()
-
-                      return (
-                        <div
-                          key={day}
-                          className={`h-20 border-2 rounded-lg flex flex-col items-center justify-center text-sm relative cursor-pointer hover:bg-gray-50 transition-colors ${
-                            isToday ? "bg-blue-50 border-blue-300" : "border-gray-200"
-                          }`}
-                        >
-                          <span className={`font-medium ${isToday ? "text-blue-600" : "text-gray-700"}`}>{day}</span>
-                          {hasMealPlan && (
-                            <div className="absolute bottom-1 left-1 right-1 flex gap-1">
-                              <div className="flex-1 h-1 bg-orange-400 rounded-full" />
-                              <div className="flex-1 h-1 bg-green-400 rounded-full" />
-                              <div className="flex-1 h-1 bg-purple-400 rounded-full" />
-                            </div>
-                          )}
+                {/* Chiều */}
+                <Card className="p-4">
+                  <h3 className="font-semibold text-blue-600 mb-3 flex items-center gap-2">
+                    <span className="text-lg">🌤️</span>
+                    Chiều
+                  </h3>
+                  <div className="space-y-2">
+                    {AVAILABLE_FOODS.slice(2, 4).map((food) => (
+                      <div key={food.id} className="p-2 bg-blue-50 rounded border border-blue-200">
+                        <div className="flex items-center gap-2">
+                          <img src={food.image} alt={food.name} className="w-8 h-8 rounded object-cover" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-gray-800">{food.name}</p>
+                            <p className="text-xs text-gray-600">{food.cookingTime}</p>
+                          </div>
                         </div>
-                      )
-                    })}
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                {/* Tối */}
+                <Card className="p-4">
+                  <h3 className="font-semibold text-purple-600 mb-3 flex items-center gap-2">
+                    <span className="text-lg">🌙</span>
+                    Tối
+                  </h3>
+                  <div className="space-y-2">
+                    {AVAILABLE_FOODS.slice(0, 2).map((food) => (
+                      <div key={food.id} className="p-2 bg-purple-50 rounded border border-purple-200">
+                        <div className="flex items-center gap-2">
+                          <img src={food.image} alt={food.name} className="w-8 h-8 rounded object-cover" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-gray-800">{food.name}</p>
+                            <p className="text-xs text-gray-600">{food.cookingTime}</p>
+                            </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </Card>
               </div>
+              </div>
 
-              {/* Meal Plans */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-800">Kế Hoạch Ăn Uống</h3>
-                {Object.entries(mealPlans).map(([day, meals]) => (
+            {/* Weekly Progress */}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Tiến Độ Tuần</h2>
+              <div className="grid grid-cols-7 gap-4">
+                {Object.entries(dailyMacros).map(([day, macros]) => (
                   <Card key={day} className="p-4">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        <span className="text-sm font-bold text-blue-600">{day}</span>
+                    <h3 className="text-center font-semibold text-gray-800 mb-3">{day}</h3>
+                    <div className="space-y-2">
+                      {macros.map((macro) => {
+                        const percentage = (macro.current / macro.goal) * 100
+                        return (
+                          <div key={macro.name} className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span className="text-gray-600">{macro.name}</span>
+                              <span className="text-gray-800">{macro.current}/{macro.goal}{macro.unit}</span>
                       </div>
-                      <div className="font-medium text-gray-800">
-                        {monthNames[currentDate.getMonth()]} {day}
+                            <Progress value={percentage} className="h-2" />
                       </div>
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-                        <span className="text-gray-600">Sáng:</span>
-                        <span className="font-medium">{meals.breakfast}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                        <span className="text-gray-600">Trưa:</span>
-                        <span className="font-medium">{meals.lunch}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
-                        <span className="text-gray-600">Tối:</span>
-                        <span className="font-medium">{meals.dinner}</span>
-                      </div>
+                        )
+                      })}
                     </div>
                   </Card>
                 ))}

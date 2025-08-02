@@ -1,3 +1,5 @@
+import { MealPlan, UserPreferences } from "./types"
+
 // Cache constants
 export const CACHE_TTL = 5 * 60 * 1000 // 5 minutes in milliseconds
 export const CACHE_CLEANUP_INTERVAL = 5 * 60 * 1000 // 5 minutes
@@ -12,19 +14,19 @@ export const FOOD_SUGGESTIONS = {
     {
       id: "gain1",
       name: "Cơm chiên trứng",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Gạo", "Trứng", "Hành lá", "Dầu ăn", "Nước mắm"],
     },
     {
       id: "gain2",
       name: "Thịt bò xào hành tây",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Thịt bò", "Hành tây", "Tỏi", "Dầu ăn", "Gia vị"],
     },
     {
       id: "gain3",
       name: "Bánh mì sandwich",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Bánh mì", "Thịt", "Rau cải", "Sốt", "Gia vị"],
     },
   ],
@@ -32,19 +34,19 @@ export const FOOD_SUGGESTIONS = {
     {
       id: "lose1",
       name: "Salad cà chua",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Cà chua", "Dưa leo", "Hành tây", "Dầu oliu", "Gia vị"],
     },
     {
       id: "lose2",
       name: "Cá hồi nướng",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Cá hồi", "Chanh", "Gia vị", "Dầu oliu", "Rau thơm"],
     },
     {
       id: "lose3",
       name: "Gà nướng",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Ức gà", "Gia vị", "Chanh", "Tỏi", "Dầu oliu"],
     },
   ],
@@ -52,19 +54,19 @@ export const FOOD_SUGGESTIONS = {
     {
       id: "maintain1",
       name: "Gạo lứt với rau",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Gạo lứt", "Rau cải", "Dầu ăn", "Gia vị", "Nước mắm"],
     },
     {
       id: "maintain2",
       name: "Thịt bò nạc",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Thịt bò nạc", "Gia vị", "Dầu ăn", "Tỏi", "Hành"],
     },
     {
       id: "maintain3",
       name: "Trứng luộc",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Trứng gà", "Muối", "Nước", "Gia vị"],
     },
   ],
@@ -100,7 +102,7 @@ export const AVAILABLE_FOODS = [
   {
     id: "1",
     name: "Cơm chiên trứng",
-    image: "/placeholder.svg?height=120&width=200",
+    image: "/placeholder.svg?height=120&width=200&bg=gray&text=gray",
     missingIngredients: [],
     cookingTime: "15 phút",
     difficulty: "Dễ",
@@ -108,7 +110,7 @@ export const AVAILABLE_FOODS = [
   {
     id: "2",
     name: "Salad cà chua",
-    image: "/placeholder.svg?height=120&width=200",
+    image: "/placeholder.svg?height=120&width=200&bg=gray&text=gray",
     missingIngredients: [],
     cookingTime: "10 phút",
     difficulty: "Rất dễ",
@@ -116,7 +118,7 @@ export const AVAILABLE_FOODS = [
   {
     id: "3",
     name: "Thịt bò xào hành tây",
-    image: "/placeholder.svg?height=120&width=200",
+    image: "/placeholder.svg?height=120&width=200&bg=gray&text=gray",
     missingIngredients: [],
     cookingTime: "20 phút",
     difficulty: "Trung bình",
@@ -127,7 +129,7 @@ export const UNAVAILABLE_FOODS = [
   {
     id: "4",
     name: "Sushi cá hồi",
-    image: "/placeholder.svg?height=120&width=200",
+    image: "/placeholder.svg?height=120&width=200&bg=gray&text=gray",
     missingIngredients: ["Nori", "Wasabi", "Gừng ngâm"],
     cookingTime: "30 phút",
     difficulty: "Khó",
@@ -135,7 +137,7 @@ export const UNAVAILABLE_FOODS = [
   {
     id: "5",
     name: "Pasta carbonara",
-    image: "/placeholder.svg?height=120&width=200",
+    image: "/placeholder.svg?height=120&width=200&bg=gray&text=gray",
     missingIngredients: ["Pasta", "Bacon", "Parmesan"],
     cookingTime: "25 phút",
     difficulty: "Trung bình",
@@ -143,7 +145,7 @@ export const UNAVAILABLE_FOODS = [
   {
     id: "6",
     name: "Bánh mì sandwich",
-    image: "/placeholder.svg?height=120&width=200",
+    image: "/placeholder.svg?height=120&width=200&bg=gray&text=gray",
     missingIngredients: ["Bánh mì", "Pate", "Rau cải"],
     cookingTime: "10 phút",
     difficulty: "Dễ",
@@ -155,50 +157,74 @@ export const MOCK_FOOD_ITEMS = [
   {
     id: "1",
     name: "Cà chua",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Vitamin C", "Lycopene", "Potassium", "Folate", "Fiber"],
+    manufacturingDate: new Date("2024-01-15"),
+    quantity: 500,
+    unit: "gram",
   },
   {
     id: "2",
     name: "Thịt bò",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Protein", "Iron", "Zinc", "Vitamin B12", "Creatine"],
+    manufacturingDate: new Date("2024-01-20"),
+    quantity: 1,
+    unit: "kg",
   },
   {
     id: "3",
     name: "Gạo tẻ",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Carbohydrate", "Thiamine", "Niacin", "Iron", "Manganese"],
+    manufacturingDate: new Date("2024-01-10"),
+    quantity: 5,
+    unit: "kg",
   },
   {
     id: "4",
     name: "Trứng gà",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Protein", "Choline", "Selenium", "Vitamin D", "Riboflavin"],
+    manufacturingDate: new Date("2024-01-18"),
+    quantity: 30,
+    unit: "quả",
   },
   {
     id: "5",
     name: "Cà rót",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Beta-carotene", "Fiber", "Vitamin K", "Potassium", "Antioxidants"],
+    manufacturingDate: new Date("2024-01-16"),
+    quantity: 300,
+    unit: "gram",
   },
   {
     id: "6",
     name: "Hành tây",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Quercetin", "Sulfur compounds", "Vitamin C", "Fiber", "Chromium"],
+    manufacturingDate: new Date("2024-01-17"),
+    quantity: 200,
+    unit: "gram",
   },
   {
     id: "7",
     name: "Cá hồi",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Omega-3", "Protein", "Vitamin D", "Selenium", "B vitamins"],
+    manufacturingDate: new Date("2024-01-19"),
+    quantity: 800,
+    unit: "gram",
   },
   {
     id: "8",
     name: "Bơ",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
     ingredients: ["Healthy fats", "Fiber", "Potassium", "Vitamin K", "Folate"],
+    manufacturingDate: new Date("2024-01-14"),
+    quantity: 250,
+    unit: "gram",
   },
 ]
 
@@ -261,9 +287,23 @@ export const MONTH_NAMES = [
 export const DAY_NAMES = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]
 
 // Meal plans
-export const MEAL_PLANS = {
+export const MEAL_PLANS: Record<number, MealPlan> = {
   15: { breakfast: "Phở bò", lunch: "Cơm gà", dinner: "Salad rau củ" },
   20: { breakfast: "Bánh mì", lunch: "Bún chả", dinner: "Cơm chiên dương châu" },
   25: { breakfast: "Cháo tôm", lunch: "Mì quảng", dinner: "Lẩu thái" },
   28: { breakfast: "Xôi gà", lunch: "Cơm tấm", dinner: "Gỏi cuốn" },
-} 
+}
+
+// Default user preferences
+export const DEFAULT_USER_PREFERENCES: UserPreferences = {
+  dietaryRestrictions: [],
+  allergies: [],
+  preferredCuisine: [],
+  calorieGoal: 2000,
+  weightGoal: 'maintain',
+}
+
+// Search filter options
+export const DIFFICULTY_OPTIONS = ['Rất dễ', 'Dễ', 'Trung bình', 'Khó']
+export const COOKING_TIME_OPTIONS = ['5 phút', '10 phút', '15 phút', '20 phút', '25 phút', '30 phút']
+export const CUISINE_CATEGORIES = ['Việt Nam', 'Châu Á', 'Châu Âu', 'Mỹ', 'Trung Đông', 'Châu Phi'] 

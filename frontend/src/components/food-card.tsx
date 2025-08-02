@@ -1,71 +1,85 @@
 "use client"
 
-import { useState } from "react"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Edit, Trash2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { CheckCircle, XCircle, Clock } from "lucide-react"
 
 interface FoodCardProps {
   id: string
   name: string
   image: string
-  ingredients: string[]
-  onEdit?: (id: string) => void
-  onDelete?: (id: string) => void
+  cookingTime: string
+  difficulty: string
+  isAvailable: boolean
+  missingIngredients?: string[]
 }
 
-export default function FoodCard({ id, name, image, ingredients, onEdit, onDelete }: FoodCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
-
+export default function FoodCard({ id, name, image, cookingTime, difficulty, isAvailable, missingIngredients }: FoodCardProps) {
   return (
-    <Card
-      className="overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-lg"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="relative h-48">
-        <img src={image || "/placeholder.svg"} alt={name} className="w-full h-full object-cover" />
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-          <h3 className="text-white font-medium text-lg">{name}</h3>
-        </div>
-      </div>
-
-      <div className="h-20 relative overflow-hidden">
-        <div
-          className={`absolute inset-0 p-3 transition-transform duration-300 ${
-            isHovered ? "-translate-y-full" : "translate-y-0"
-          }`}
-        >
-          <div className="text-sm text-gray-600 space-y-1">
-            {ingredients.slice(0, 3).map((ingredient, index) => (
-              <div key={index} className="truncate">
-                • {ingredient}
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+      {isAvailable ? (
+        // Available food card
+        <>
+          <img
+            src={image || "/placeholder.svg"}
+            alt={name}
+            className="w-full h-48 object-cover"
+          />
+          <div className="p-4">
+            <h3 className="font-semibold text-lg mb-2">{name}</h3>
+            <div className="flex items-center gap-2 mb-3">
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                <CheckCircle size={12} className="mr-1" />
+                Đủ nguyên liệu
+              </Badge>
+            </div>
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <div className="flex items-center gap-1">
+                <Clock size={14} />
+                {cookingTime}
               </div>
-            ))}
-            {ingredients.length > 3 && <div className="text-xs text-gray-500">+{ingredients.length - 3} more...</div>}
+              <div className="font-medium">{difficulty}</div>
+            </div>
           </div>
-        </div>
-
-        <div
-          className={`absolute inset-0 p-3 flex items-center justify-center gap-4 transition-transform duration-300 ${
-            isHovered ? "translate-y-0" : "translate-y-full"
-          }`}
-        >
-          <Button size="sm" variant="outline" onClick={() => onEdit?.(id)} className="h-10 px-4">
-            <Edit size={16} className="mr-2" />
-            Sửa
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => onDelete?.(id)}
-            className="h-10 px-4 text-red-500 hover:text-red-600"
-          >
-            <Trash2 size={16} className="mr-2" />
-            Xóa
-          </Button>
-        </div>
-      </div>
+        </>
+      ) : (
+        // Unavailable food card
+        <>
+          <div className="relative">
+            <img
+              src={image || "/placeholder.svg"}
+              alt={name}
+              className="w-full h-48 object-cover opacity-75"
+            />
+            <div className="absolute top-2 right-2">
+              <Badge variant="destructive">
+                <XCircle size={12} className="mr-1" />
+                Thiếu nguyên liệu
+              </Badge>
+            </div>
+          </div>
+          <div className="p-4">
+            <h3 className="font-semibold text-lg mb-2">{name}</h3>
+            <div className="mb-3">
+              <p className="text-sm text-red-600 font-medium mb-1">Thiếu:</p>
+              <div className="flex flex-wrap gap-1">
+                {missingIngredients?.map((ingredient, index) => (
+                  <Badge key={index} variant="outline" className="text-xs border-red-200 text-red-600">
+                    {ingredient}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <div className="flex items-center gap-1">
+                <Clock size={14} />
+                {cookingTime}
+              </div>
+              <div className="font-medium">{difficulty}</div>
+            </div>
+          </div>
+        </>
+      )}
     </Card>
   )
 }
