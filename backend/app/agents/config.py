@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 from ...config.setting import CHROMA_DB_DIR
 
@@ -6,10 +7,24 @@ from langchain_chroma import Chroma
 
 load_dotenv()
 
-retrieve_llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
-agent_llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
+# Kiểm tra API key
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    raise ValueError("GOOGLE_API_KEY not found in environment variables. Please set it in your .env file.")
 
-embed = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+retrieve_llm = ChatGoogleGenerativeAI(
+    model="gemini-2.0-flash",
+    google_api_key=api_key
+)
+agent_llm = ChatGoogleGenerativeAI(
+    model="gemini-2.0-flash", 
+    google_api_key=api_key
+)
+
+embed = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=api_key
+)
 
 vectordb = Chroma(embedding_function=embed, persist_directory=CHROMA_DB_DIR)
 retriever = vectordb.as_retriever(search_kwargs={"k": 6})
