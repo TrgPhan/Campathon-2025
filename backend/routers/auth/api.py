@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 from typing import Annotated
-from routers.auth.utils import get_password_hash, verify_password, create_access_token, get_current_user
+from utils.auth import get_password_hash, verify_password, create_access_token, get_current_user
 from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 from db import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
