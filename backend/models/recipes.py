@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, Column, Text, String
 from sqlalchemy.orm import relationship
-from db import Base
+from backend.db import Base
 
 
 class Recipes(Base):

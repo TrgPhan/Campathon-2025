@@ -2,12 +2,12 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 from typing import Annotated
-from utils.auth import get_password_hash, verify_password, create_access_token, get_current_user
-from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
-from db import get_db
+from backend.utils.auth import get_password_hash, verify_password, create_access_token, get_current_user
+from backend.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from backend.db import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from models.user import User
+from backend.models.user import User
 
 router = APIRouter()
 

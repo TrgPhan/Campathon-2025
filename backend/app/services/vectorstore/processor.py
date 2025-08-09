@@ -3,7 +3,7 @@ import json
 import os
 from ingredient_parser import parse_ingredient
 
-from backend.config.setting import RECIPES_FOR_CHROMA_DIR, RAW_DIR
+from backend.config import RECIPES_FOR_CHROMA_DIR, RAW_DIR
 
 def parse_time_str(time_str):
     """Parse time string to total minutes

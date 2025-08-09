@@ -1,6 +1,6 @@
 from langchain_core.tools import tool
 from langchain.chains import RetrievalQA
-from ..config import (get_llm_for_retrieve_recipe, 
+from backend.app.agents.config import (get_llm_for_retrieve_recipe, 
                               get_retriever_for_retrieve_recipe,
                               get_vectordb_for_retrieve_recipe)
 

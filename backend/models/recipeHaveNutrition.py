@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, Column, ForeignKey
 from sqlalchemy.orm import relationship
-from db import Base
+from backend.db import Base
 
 
 class RecipeIncHaveNutrition(Base):

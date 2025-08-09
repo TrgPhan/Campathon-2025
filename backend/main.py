@@ -1,14 +1,15 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import desc, func, delete, update
-from models import ingredients, nutritions, recipeHaveNutrition, recipeIncludeIngredient, recipes
-from db import Base, engine
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-import os
-from routers.chat.api import router as chat_router
-from utils.logger_config import get_logger
+from backend.utils.logger_config import get_logger
+from backend.routers.chat.api import router as chat_router
+from backend.models import ingredients, nutritions, recipeHaveNutrition, recipeIncludeIngredient, recipes
+from backend.db import Base, engine
+
+
 
 app = FastAPI(
     title="FoodXPro",

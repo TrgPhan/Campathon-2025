@@ -2,7 +2,7 @@ import os
 import json
 from dotenv import load_dotenv
 
-from backend.config.setting import RECIPES_FOR_CHROMA_DIR, CHROMA_DB_DIR
+from backend.config import RECIPES_FOR_CHROMA_DIR, CHROMA_DB_DIR
 
 from langchain.schema import Document
 from langchain_chroma import Chroma
