@@ -9,3 +9,4 @@ langchain_chroma==0.2.5
 langgraph==0.6.2
 fastapi==0.116.1
 uvicorn==0.27.1
+aiosqlite==0.21.0
