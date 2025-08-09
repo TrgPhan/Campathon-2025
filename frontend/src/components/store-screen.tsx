@@ -7,30 +7,16 @@ import { Card } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import FoodCard from "@/components/ingredient-card"
-import { MOCK_FOOD_ITEMS } from "@/lib/constants"
-
-const mockFoodItems = MOCK_FOOD_ITEMS
+import IngredientCard from "@/components/ingredient-card"
+import AddIngredientCard from "@/components/add-ingredient-card"
+import { IngredientData } from "@/components/ingredient-form"
+import { useIngredients } from "@/hooks/useIngredients"
 
 export default function StoreScreen() {
-  const [foodItems, setFoodItems] = useState(mockFoodItems)
+  const { ingredients, addIngredient, updateIngredient, deleteIngredient, searchIngredients } = useIngredients()
   const [searchTerm, setSearchTerm] = useState("")
 
-  const filteredItems = foodItems.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
-
-  const handleEdit = (id: string) => {
-    console.log("Edit item:", id)
-    // Handle edit logic here
-  }
-
-  const handleDelete = (id: string) => {
-    setFoodItems((items) => items.filter((item) => item.id !== id))
-  }
-
-  const handleAddNew = () => {
-    console.log("Add new ingredient")
-    // Handle add new ingredient logic here
-  }
+  const filteredItems = searchIngredients(searchTerm)
 
   return (
     <div className="h-full bg-white flex flex-col">
@@ -60,19 +46,11 @@ export default function StoreScreen() {
           <div className="px-6 py-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {/* Add New Card */}
-              <Card
-                onClick={handleAddNew}
-                className="group relative flex items-center justify-center h-full min-h-[300px] bg-gradient-to-br from-gray-50 to-gray-100 hover:from-green-50 hover:to-emerald-50 cursor-pointer transition-all duration-300 border border-dashed border-gray-200 hover:border-green-300/50 hover:shadow-xl rounded-lg"
-              >
-                <div className="text-center text-gray-400 group-hover:text-green-600 transition-colors duration-300">
-                  <Plus size={36} className="mx-auto" />
-                  <p className="mt-3 font-semibold text-sm">Thêm Nguyên Liệu</p>
-                </div>
-              </Card>
+              <AddIngredientCard onSave={addIngredient} />
 
               {/* Food Items */}
               {filteredItems.map((food) => (
-                <FoodCard
+                <IngredientCard
                   key={food.id}
                   id={food.id}
                   name={food.name}
@@ -81,8 +59,8 @@ export default function StoreScreen() {
                   manufacturingDate={food.manufacturingDate}
                   quantity={food.quantity}
                   unit={food.unit}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
+                  onEdit={updateIngredient}
+                  onDelete={deleteIngredient}
                 />
               ))}
             </div>

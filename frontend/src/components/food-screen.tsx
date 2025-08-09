@@ -33,7 +33,7 @@ export default function FoodScreen() {
 
             <TabsContent value="du" className="flex-1 overflow-hidden">
               <ScrollArea className="h-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
+                <div className="grid grid-cols-1 gap-4 pb-6">
                   {availableFoods.map((food) => (
                     <FoodCard
                       key={food.id}
@@ -43,6 +43,22 @@ export default function FoodScreen() {
                       cookingTime={food.cookingTime}
                       difficulty={food.difficulty}
                       isAvailable={true}
+                      calories={food.calories}
+                      protein={food.protein}
+                      carbs={food.carbs}
+                      fat={food.fat}
+                      onAdd={(id) => {
+                        console.log("Adding food to calendar:", id)
+                        // TODO: Implement add to calendar functionality
+                      }}
+                      onEdit={(id) => {
+                        console.log("Editing food:", id)
+                        // TODO: Implement edit functionality
+                      }}
+                      onDelete={(id) => {
+                        console.log("Deleting food:", id)
+                        // TODO: Implement delete functionality
+                      }}
                     />
                   ))}
                 </div>
@@ -51,7 +67,7 @@ export default function FoodScreen() {
 
             <TabsContent value="thieu" className="flex-1 overflow-hidden">
               <ScrollArea className="h-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
+                <div className="grid grid-cols-1 gap-4 pb-6">
                   {unavailableFoods.map((food) => (
                     <FoodCard
                       key={food.id}
@@ -62,6 +78,22 @@ export default function FoodScreen() {
                       difficulty={food.difficulty}
                       isAvailable={false}
                       missingIngredients={food.missingIngredients}
+                      calories={food.calories}
+                      protein={food.protein}
+                      carbs={food.carbs}
+                      fat={food.fat}
+                      onAdd={(id) => {
+                        console.log("Adding food to calendar:", id)
+                        // TODO: Implement add to calendar functionality
+                      }}
+                      onEdit={(id) => {
+                        console.log("Editing food:", id)
+                        // TODO: Implement edit functionality
+                      }}
+                      onDelete={(id) => {
+                        console.log("Deleting food:", id)
+                        // TODO: Implement delete functionality
+                      }}
                     />
                   ))}
                 </div>

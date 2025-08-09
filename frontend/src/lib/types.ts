@@ -5,7 +5,7 @@ export interface Message {
   isBot: boolean
   timestamp: Date
   isTyping: boolean
-  foodSuggestions?: Array<{ id: string; name: string; image: string; ingredients: string[] }>
+  foodSuggestions?: FoodSuggestion[]
 }
 
 export interface ChatSession {
@@ -32,6 +32,11 @@ export interface FoodSuggestion {
   name: string
   image: string
   ingredients: string[]
+  calories?: number
+  protein?: number
+  carbs?: number
+  fat?: number
+  fiber?: number
 }
 
 export interface TaskPrompt {

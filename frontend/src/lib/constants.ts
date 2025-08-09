@@ -1,4 +1,4 @@
-import { MealPlan, UserPreferences } from "./types"
+import { MealPlan, UserPreferences, Macro } from "./types"
 
 // Cache constants
 export const CACHE_TTL = 5 * 60 * 1000 // 5 minutes in milliseconds
@@ -16,18 +16,33 @@ export const FOOD_SUGGESTIONS = {
       name: "Cơm chiên trứng",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Gạo", "Trứng", "Hành lá", "Dầu ăn", "Nước mắm"],
+      calories: 450,
+      protein: 18,
+      carbs: 65,
+      fat: 15,
+      fiber: 3,
     },
     {
       id: "gain2",
       name: "Thịt bò xào hành tây",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Thịt bò", "Hành tây", "Tỏi", "Dầu ăn", "Gia vị"],
+      calories: 380,
+      protein: 35,
+      carbs: 12,
+      fat: 22,
+      fiber: 2,
     },
     {
       id: "gain3",
       name: "Bánh mì sandwich",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Bánh mì", "Thịt", "Rau cải", "Sốt", "Gia vị"],
+      calories: 420,
+      protein: 25,
+      carbs: 55,
+      fat: 18,
+      fiber: 4,
     },
   ],
   lose: [
@@ -36,18 +51,33 @@ export const FOOD_SUGGESTIONS = {
       name: "Salad cà chua",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Cà chua", "Dưa leo", "Hành tây", "Dầu oliu", "Gia vị"],
+      calories: 120,
+      protein: 4,
+      carbs: 15,
+      fat: 8,
+      fiber: 6,
     },
     {
       id: "lose2",
       name: "Cá hồi nướng",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Cá hồi", "Chanh", "Gia vị", "Dầu oliu", "Rau thơm"],
+      calories: 280,
+      protein: 42,
+      carbs: 2,
+      fat: 12,
+      fiber: 1,
     },
     {
       id: "lose3",
       name: "Gà nướng",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Ức gà", "Gia vị", "Chanh", "Tỏi", "Dầu oliu"],
+      calories: 220,
+      protein: 38,
+      carbs: 3,
+      fat: 8,
+      fiber: 2,
     },
   ],
   maintain: [
@@ -56,18 +86,33 @@ export const FOOD_SUGGESTIONS = {
       name: "Gạo lứt với rau",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Gạo lứt", "Rau cải", "Dầu ăn", "Gia vị", "Nước mắm"],
+      calories: 320,
+      protein: 12,
+      carbs: 58,
+      fat: 6,
+      fiber: 8,
     },
     {
       id: "maintain2",
       name: "Thịt bò nạc",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Thịt bò nạc", "Gia vị", "Dầu ăn", "Tỏi", "Hành"],
+      calories: 290,
+      protein: 32,
+      carbs: 8,
+      fat: 16,
+      fiber: 3,
     },
     {
       id: "maintain3",
       name: "Trứng luộc",
       image: "/placeholder.svg?height=200&width=300&bg=gray&text=gray",
       ingredients: ["Trứng gà", "Muối", "Nước", "Gia vị"],
+      calories: 155,
+      protein: 13,
+      carbs: 1,
+      fat: 11,
+      fiber: 0,
     },
   ],
 }
@@ -106,6 +151,11 @@ export const AVAILABLE_FOODS = [
     missingIngredients: [],
     cookingTime: "15 phút",
     difficulty: "Dễ",
+    calories: 450,
+    protein: 18,
+    carbs: 65,
+    fat: 15,
+    fiber: 3,
   },
   {
     id: "2",
@@ -114,6 +164,11 @@ export const AVAILABLE_FOODS = [
     missingIngredients: [],
     cookingTime: "10 phút",
     difficulty: "Rất dễ",
+    calories: 120,
+    protein: 4,
+    carbs: 15,
+    fat: 8,
+    fiber: 6,
   },
   {
     id: "3",
@@ -122,6 +177,11 @@ export const AVAILABLE_FOODS = [
     missingIngredients: [],
     cookingTime: "20 phút",
     difficulty: "Trung bình",
+    calories: 380,
+    protein: 35,
+    carbs: 12,
+    fat: 22,
+    fiber: 2,
   },
 ]
 
@@ -133,6 +193,11 @@ export const UNAVAILABLE_FOODS = [
     missingIngredients: ["Nori", "Wasabi", "Gừng ngâm"],
     cookingTime: "30 phút",
     difficulty: "Khó",
+    calories: 320,
+    protein: 28,
+    carbs: 45,
+    fat: 8,
+    fiber: 2,
   },
   {
     id: "5",
@@ -141,6 +206,11 @@ export const UNAVAILABLE_FOODS = [
     missingIngredients: ["Pasta", "Bacon", "Parmesan"],
     cookingTime: "25 phút",
     difficulty: "Trung bình",
+    calories: 580,
+    protein: 22,
+    carbs: 65,
+    fat: 28,
+    fiber: 4,
   },
   {
     id: "6",
@@ -149,6 +219,11 @@ export const UNAVAILABLE_FOODS = [
     missingIngredients: ["Bánh mì", "Pate", "Rau cải"],
     cookingTime: "10 phút",
     difficulty: "Dễ",
+    calories: 420,
+    protein: 25,
+    carbs: 55,
+    fat: 18,
+    fiber: 4,
   },
 ]
 
@@ -239,6 +314,45 @@ export const MACROS = [
   { name: "Carbs", current: 280, goal: 320, color: "bg-blue-500", unit: "g" },
   { name: "Fat", current: 85, goal: 100, color: "bg-yellow-500", unit: "g" },
 ]
+
+// Daily macros data for calendar screen
+export const DAILY_MACROS: Record<string, Macro[]> = {
+  "T2": [
+    { name: "Protein", current: 120, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 280, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 85, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+  "T3": [
+    { name: "Protein", current: 135, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 300, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 92, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+  "T4": [
+    { name: "Protein", current: 110, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 260, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 78, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+  "T5": [
+    { name: "Protein", current: 145, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 310, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 95, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+  "T6": [
+    { name: "Protein", current: 125, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 290, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 88, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+  "T7": [
+    { name: "Protein", current: 130, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 295, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 90, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+  "CN": [
+    { name: "Protein", current: 115, goal: 150, color: "bg-red-500", unit: "g" },
+    { name: "Carbs", current: 275, goal: 320, color: "bg-blue-500", unit: "g" },
+    { name: "Fat", current: 82, goal: 100, color: "bg-yellow-500", unit: "g" },
+  ],
+}
 
 export const NUTRIENTS = [
   { name: "Cholesterol", current: 180, goal: 200, unit: "mg" },

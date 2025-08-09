@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Edit, Trash2, Calendar, Package } from "lucide-react"
+import IngredientForm, { IngredientData } from "@/components/ingredient-form"
 
 interface IngredientCardProps {
   id: string
@@ -13,16 +14,36 @@ interface IngredientCardProps {
   manufacturingDate?: Date
   quantity?: number
   unit?: string
-  onEdit?: (id: string) => void
+  onEdit?: (ingredient: IngredientData) => void
   onDelete?: (id: string) => void
 }
 
 export default function IngredientCard({ id, name, image, ingredients, manufacturingDate, quantity, unit, onEdit, onDelete }: IngredientCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [editData, setEditData] = useState<IngredientData | undefined>()
+
+  const handleEdit = () => {
+    setEditData({
+      id,
+      name,
+      image,
+      ingredients,
+      manufacturingDate: manufacturingDate || new Date(),
+      quantity: quantity || 0,
+      unit: unit || ""
+    })
+    setIsFormOpen(true)
+  }
+
+  const handleSave = (ingredient: IngredientData) => {
+    onEdit?.(ingredient)
+    setIsFormOpen(false)
+  }
 
   return (
     <Card 
-      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -36,18 +57,18 @@ export default function IngredientCard({ id, name, image, ingredients, manufactu
           /* Mouseover Actions - Shown on hover */
           <div className="flex items-center justify-center gap-8 h-32">
             <div className="flex flex-col items-center gap-2">
-              <Button
-                size="sm"
-                variant="secondary"
-                className="w-20 h-20 rounded-lg bg-blue-50 hover:bg-blue-100"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onEdit?.(id)
-                }}
-              >
-                <Edit size={20} className="text-blue-600" />
-              </Button>
-              <span className="text-sm text-gray-600 font-medium">Sửa</span>
+                              <Button
+                  size="sm"
+                  variant="secondary"
+                  className="w-20 h-20 rounded-lg bg-blue-50 hover:bg-blue-100"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleEdit()
+                  }}
+                >
+                  <Edit size={20} className="text-blue-600" />
+                </Button>
+                <span className="text-sm text-gray-600 font-medium">Sửa</span>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Button
@@ -94,6 +115,14 @@ export default function IngredientCard({ id, name, image, ingredients, manufactu
           </>
         )}
       </div>
+
+      {/* Form Overlay */}
+      <IngredientForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        onSave={handleSave}
+        editData={editData}
+      />
     </Card>
   )
 }

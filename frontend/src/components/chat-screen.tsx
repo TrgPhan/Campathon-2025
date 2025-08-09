@@ -369,6 +369,22 @@ export default function ChatScreen() {
                             cookingTime="30 phút"
                             difficulty="Dễ"
                             isAvailable={true}
+                            calories={food.calories ?? 0}
+                            protein={food.protein ?? 0}
+                            carbs={food.carbs ?? 0}
+                            fat={food.fat ?? 0}
+                            onAdd={(id) => {
+                              console.log("Adding food to calendar:", id)
+                              // TODO: Implement add to calendar functionality
+                            }}
+                            onEdit={(id) => {
+                              console.log("Editing food:", id)
+                              // TODO: Implement edit functionality
+                            }}
+                            onDelete={(id) => {
+                              console.log("Deleting food:", id)
+                              // TODO: Implement delete functionality
+                            }}
                           />
                         ))}
                       </div>

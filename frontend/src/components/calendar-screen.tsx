@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Progress } from "@/components/ui/progress"
-import { MONTH_NAMES, DAY_NAMES, MEAL_PLANS, AVAILABLE_FOODS } from "@/lib/constants"
+import { MONTH_NAMES, DAY_NAMES, MEAL_PLANS, AVAILABLE_FOODS, DAILY_MACROS } from "@/lib/constants"
 import type { Macro } from "@/lib/types"
 
 export default function CalendarScreen() {
@@ -16,44 +16,8 @@ export default function CalendarScreen() {
   const dayNames = DAY_NAMES
   const mealPlans = MEAL_PLANS
 
-  // Mock daily macro data for each day
-  const dailyMacros: Record<string, Macro[]> = {
-    "T2": [
-      { name: "Protein", current: 120, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 280, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 85, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-    "T3": [
-      { name: "Protein", current: 135, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 300, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 92, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-    "T4": [
-      { name: "Protein", current: 110, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 260, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 78, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-    "T5": [
-      { name: "Protein", current: 145, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 310, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 95, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-    "T6": [
-      { name: "Protein", current: 125, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 290, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 88, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-    "T7": [
-      { name: "Protein", current: 130, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 295, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 90, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-    "CN": [
-      { name: "Protein", current: 115, goal: 150, color: "bg-red-500", unit: "g" },
-      { name: "Carbs", current: 275, goal: 320, color: "bg-blue-500", unit: "g" },
-      { name: "Fat", current: 82, goal: 100, color: "bg-yellow-500", unit: "g" },
-    ],
-  }
+  // Use daily macros data from constants
+  const dailyMacros = DAILY_MACROS
 
   const navigateMonth = (direction: number) => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + direction, 1))
