@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from ..app.agents.agent import process_message
-from ..utils.logger_config import get_logger
+from app.agents.agent import process_message
+from utils.logger_config import get_logger
 router = APIRouter()
 
 SESSION_STORE = {}
