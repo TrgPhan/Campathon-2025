@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from ...config.setting import CHROMA_DB_DIR
+from ...config import CHROMA_DB_DIR
 
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
