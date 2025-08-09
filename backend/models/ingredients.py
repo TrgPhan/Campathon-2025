@@ -8,7 +8,7 @@ class Ingredients(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(Text, nullable=False)
-    unit = Column(String, nullable=False)
+    unit = Column(String, nullable=True)
 
     ingredient_in_recipe = relationship(
         'RecipeIncludeIngredient', back_populates='contains_ingredient', lazy='selectin')

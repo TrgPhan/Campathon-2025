@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from db import Base
 
 
-class RecipeIncHaveNutrition(Base):
+class RecipeHaveNutrition(Base):
     __tablename__ = 'RecipeHaveNutrition'
 
     id = Column(Integer, primary_key=True, index=True)

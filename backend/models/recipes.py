@@ -13,7 +13,7 @@ class Recipes(Base):
     prep_time = Column(Integer, nullable=True)
     cook_time = Column(Integer, nullable=True)
     chill_time = Column(Integer, nullable=True)
-    addtitional_time = Column(Integer, nullable=True)
+    additional_time = Column(Integer, nullable=True)
     total_time = Column(Integer, nullable=True)
     servings = Column(Integer, default=1)
     yields = Column(String, nullable=True)

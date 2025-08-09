@@ -4,4 +4,4 @@ __pycache__/
 *$py.class
 *.jpg
 # .env
-*.db
+#*.db

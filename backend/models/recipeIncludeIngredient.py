@@ -7,12 +7,12 @@ class RecipeIncludeIngredient(Base):
     __tablename__ = 'RecipeIncludeIngredient'
 
     id = Column(Integer, primary_key=True, index=True)
-    recicpe_id = Column(Integer, ForeignKey(
+    recipe_id = Column(Integer, ForeignKey(
         "Recipes.id"))
     ingredient_id = Column(Integer, ForeignKey(
         'Ingredients.id'))
-    size = Column(String, nullable=False)
-    amount = Column(Integer, nullable=False)
+    size = Column(String, nullable=True)
+    amount = Column(Integer, nullable=True)
     preparation = Column(Text, nullable=True)
     prepared_ingredient = Column(Boolean, default=False)
     comment = Column(Text, nullable=True)
